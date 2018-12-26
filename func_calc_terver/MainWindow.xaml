@@ -1,0 +1,59 @@
+﻿<Window x:Class="func_calc_terver.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:func_calc_terver"
+        xmlns:viewModels="clr-namespace:func_calc_terver.ViewModels"
+        mc:Ignorable="d"
+        Title="Root Finder" Height="450" Width="600">
+
+    <Window.DataContext>
+        <viewModels:MainViewModel/>
+    </Window.DataContext>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Grid Column="0">
+            <StackPanel>
+                <WrapPanel>
+                    <Label Content="Function" MinWidth="200"></Label>
+                    <TextBox HorizontalAlignment="Stretch" Margin="10,0" IsReadOnly="{Binding IsUnavailable}" Text="{Binding Function}"></TextBox>
+                </WrapPanel>
+
+                <WrapPanel>
+                    <Label Content="eps" ></Label>
+                    <TextBox MinWidth="50" IsReadOnly="{Binding IsUnavailable}" Text="{Binding Eps}"></TextBox>
+                </WrapPanel>
+
+                <WrapPanel>
+                    <Label Content="From "></Label>
+                    <TextBox MinWidth="20" IsReadOnly="{Binding IsUnavailable}" Text="{Binding Min}"></TextBox>
+                    <Label Content="  To "></Label>
+                    <TextBox MinWidth="20" IsReadOnly="{Binding IsUnavailable}" Text="{Binding Max}"></TextBox>
+                </WrapPanel>
+
+                <Button Margin="20" Content="Calculate" IsEnabled="{Binding IsAvailable}" Command="{Binding CalculateCommand}"></Button>
+                
+            </StackPanel>
+            <Label Content="Powered by Forichok" FontSize="7" VerticalAlignment="Bottom"></Label>
+        </Grid>
+        <GroupBox Grid.Column="1" Header="Function value (Right part)">
+            
+            <ScrollViewer Name="In"  VerticalScrollBarVisibility="Hidden">
+                <TextBox   IsReadOnly="{Binding IsUnavailable}" Text="{Binding In}" TextWrapping="Wrap" AcceptsReturn="True"></TextBox>
+            </ScrollViewer>
+        </GroupBox>
+        <GroupBox Header="Roots" Grid.Column="2">
+            
+            <ScrollViewer  Name="Out" ScrollChanged="Scroll">
+                <TextBox IsReadOnly="{Binding IsUnavailable}"  Text="{Binding Out}" TextWrapping="Wrap"></TextBox>
+            </ScrollViewer>
+        </GroupBox>
+    </Grid>
+</Window>
